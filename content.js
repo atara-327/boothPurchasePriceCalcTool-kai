@@ -137,6 +137,8 @@
     const priceMatch = text.match(/お支払金額.*?¥\s*([\d,]+)/);
     const isGift = text.includes('<b class="u-tpg-title3">ギフト</b>');
     if (!priceMatch) return null;
+    const isCanceled = text.includes('<span class="mx-0 badge order-state cancelled">キャンセル</span>');
+    if (isCanceled) return null;
     const price = Number(priceMatch[1].replace(/,/g, ""));
     return { price, isGift };
   }
@@ -235,7 +237,7 @@
         window.open(tweetUrl, "_blank");
       }
       url.searchParams.delete("total");
-      url.searchParams.set("page", "1");
+      url.searchParams.delete("page");
       window.location.href = url.href;
     }
   }
@@ -303,6 +305,10 @@
   addStartButton();
 
   if (isAggregationMode()) {
+    const btn = document.querySelector("#booth-total-start-btn");
+    btn.disabled = true;
+    btn.textContent = "集計中…";
+    addStopButton();
     startAggregation();
   }
 })();
