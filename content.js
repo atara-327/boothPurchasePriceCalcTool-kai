@@ -192,7 +192,8 @@
     const items = Array.from(container.children)
       .filter((el) => !el.classList.contains("pager"))
       .map(extractItemInfo)
-      .filter(Boolean);
+      .filter(Boolean)
+      .filter((item, idx, arr) => arr.findIndex(i => i.itemId === item.itemId) === idx);
 
     let pageTotal = 0;
 
