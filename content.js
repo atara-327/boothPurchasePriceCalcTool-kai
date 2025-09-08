@@ -261,6 +261,9 @@
       boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
     });
     btn.addEventListener("click", () => {
+      if (!isAggregationMode()) {
+        window.location.href = "https://accounts.booth.pm/orders";
+      }
       setAggregationMode(true);
       btn.disabled = true;
       btn.textContent = "集計開始…";
