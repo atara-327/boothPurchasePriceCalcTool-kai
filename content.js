@@ -263,12 +263,38 @@
     btn.addEventListener("click", () => {
       if (!isAggregationMode()) {
         window.alert("集計を開始します。集計が終わるまで画面を触らずにお待ちください。");
+        setAggregationMode(true);
         window.location.href = "https://accounts.booth.pm/orders";
+        return;
       }
-      setAggregationMode(true);
-      btn.disabled = true;
-      btn.textContent = "集計開始…";
-      startAggregation();
+    });
+    document.body.appendChild(btn);
+  }
+
+  function addStopButton() {
+    if (document.querySelector("#booth-total-stop-btn")) return;
+
+    const btn = document.createElement("button");
+    btn.id = "booth-total-stop-btn";
+    btn.textContent = "集計停止";
+    Object.assign(btn.style, {
+      position: "fixed",
+      bottom: "70px",
+      left: "20px",
+      padding: "10px 15px",
+      fontSize: "14px",
+      backgroundColor: "#fc4d50",
+      color: "#fff",
+      border: "none",
+      borderRadius: "20px",
+      cursor: "pointer",
+      zIndex: "9999",
+      boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+    });
+    btn.addEventListener("click", () => {
+      setAggregationMode(false);
+      window.location.href = "https://accounts.booth.pm/orders";
+      return;
     });
     document.body.appendChild(btn);
   }
