@@ -262,6 +262,7 @@
     });
     btn.addEventListener("click", () => {
       if (!isAggregationMode()) {
+        window.alert("集計を開始します。集計が終わるまで画面を触らずにお待ちください。");
         window.location.href = "https://accounts.booth.pm/orders";
       }
       setAggregationMode(true);
